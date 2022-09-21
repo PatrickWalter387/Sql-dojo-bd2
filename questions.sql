@@ -1,5 +1,7 @@
 1  Listar os empregados (nomes) que tem salário maior que seu chefe
-
+SELECT emp.*, chefe.salario FROM empregados emp
+INNER JOIN empregados chefe ON chefe.emp_id = emp.supervisor_id
+WHERE emp.salario > chefe.salario;
 
 --  empregado | chefe | emp sal | chef sal 
 -- -----------+-------+---------+----------
@@ -8,11 +10,13 @@
 
 
 2 Listar o maior salario de cada departamento (pode ser usado o group by)
-
+SELECT dep_id, MAX(salario) FROM empregados 
+GROUP BY dep_id;
 
 
 3 Listar o nome do funcionario com maior salario dentro de cada departamento (pode ser usado o IN)
-
+SELECT nome FROM empregados emp
+WHERE salario = (SELECT MAX(salario) FROM empregados emp2 WHERE emp.dep_id = emp2.dep_id) 
 
 --  dep_id | nome  | salario 
 -- --------+-------+---------
